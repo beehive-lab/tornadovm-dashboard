@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Build Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h3 id="title">Current Benchmark Dashboard</h3>
+
+    <div class="row">
+        <div class="column">
+            {% comment %} <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="csv-upload" class="custom-file-upload">Upload CSV File</label>
+                <input type="file" name="csv_file" accept=".csv" id="csv-upload">
+                <button type="submit">Upload</button>
+            </form> {% endcomment %}
+            <table id="test-results-table">
+                <tr>
+                    <th>Run ID</th>
+                    <th>Test Result</th>
+                    <th>Test Duration</th>
+                </tr>
+                <!-- {% for test_run in test_runs %}
+                <tr>
+                    <td>{{ test_run.test_name }}</td>
+                    <td>{{ test_run.test_result }}</td>
+                    <td>{{ test_run.test_duration }}</td>
+                </tr>
+                
+                {% endfor %} -->
+
+                <tr>
+                    <td>Test 1</td>
+                    <td>Pass</td>
+                    <td>10 ms</td>
+                </tr>
+                <tr>
+                    <td>Test 2</td>
+                    <td>Fail</td>
+                    <td>15 ms</td>
+                </tr>
+                <tr>
+                    <td>Test 3</td>
+                    <td>Incomplete</td>
+                    <td>20 ms</td>
+                </tr>
+                <tr>
+                    <td>Test 4</td>
+                    <td>Pass</td>
+                    <td>10 ms</td>
+                </tr>
+                <tr>
+                    <td>Test 5</td>
+                    <td>Fail</td>
+                    <td>15 ms</td>
+                </tr>
+                <tr>
+                    <td>Test 6</td>
+                    <td>Incomplete</td>
+                    <td>20 ms</td>
+                </tr>
+            </table>
+            <h3 class="minititle">Build Times</h3>
+        </div>
+
+        <div class="column">
+          <h3 class="minititle">Benchmark performance history</h3>
+          
+        </div>
+    </div>
+
+           
+
+</body>
+<footer>
+    <center>
+        <p>Current Version: 1.0 <br/> Created by Kushagra Srivastava.</p>
+    </center>
+</footer>
+</html>

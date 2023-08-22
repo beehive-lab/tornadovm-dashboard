@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+* {
+    font-family: "Montserrat", Arial, sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: fixed;
+    color: white;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #212121;
+}
+button {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.2s;
+}
+button:hover {
+    background-color: #2a2a2a;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
+.content {
+    padding: 0 10px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+#test-results-table {
+    height: 25vh;
+}
+
+
+.row {
+    display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+    background-color:#383838;
+    color: white;
+    flex: 50%;
+    padding: 2px;
+    height: 85vh;    margin: 3px;
+}
+
+/* Hide the default file input appearance */
+#csv-upload {
+    display: none;
+}
+
+/* Common styles for both button and custom file upload */
+.custom-file-upload,
+button {
+    background-color: #212121;
+    color: white;
+    padding: 0; /* Remove padding from the button */
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    min-width: 10vw;
+    ;
+    transition: 0.2s;
+    display: inline-block;
+    height: 40px; /* Set the desired height for both elements */
+    line-height: 40px; /* Center text vertically in the element */
+    text-align: center; /* Center text horizontally in the element */
+}
+
+/* Apply button hover effect to both elements */
+.custom-file-upload:hover, button:hover {
+    background-color: #252525;
+}
+
+
+
+
+#title {
+    text-align: center;
+    margin-bottom: px;
+    padding: 10x;
+    color:white;
+    transition: 0.3s;
+}
+
+
+.minititle {
+    text-align: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    color:white;
+    transition: 0.3s;
+    margin-left: 10px;
+    margin-right:10px;
+    font-size: 15px;
+}
+
+
+
+/* Apply styles to the table */
+table {
+    font-size: 14px;
+    margin: 10px;
+    width: 95%;
+    max-height: 10vh;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: scroll; /* Hide any content that might extend outside the rounded corners */
+}
+  
+  /* Apply styles to the table rows */
+
+  /* Apply styles to the table cells */
+  td, th {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Add some spacing to the first and last cells of each row */
+  tr td:first-child,
+  tr th:first-child {
+    padding-left: 15px;
+  }
+  
+  tr td:last-child,
+  tr th:last-child {
+    padding-right: 15px;
+  }
+#graphtable {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+}
+
+.graph {
+    max-width: 100%;
+    width: 100%;
+    max-height: 100%;
+    height: auto;
+}
+
+  #test-results-table tr:hover {background-color: #353535;}
+  
+  #test-results-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: white;
+  }
