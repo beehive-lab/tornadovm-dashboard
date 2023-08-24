@@ -1,3 +1,4 @@
+# This code is running a series of commands in the terminal and capturing the output in a file.
 import subprocess
 import os
 
