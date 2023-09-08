@@ -1,0 +1,6 @@
+version=0.16-dev
+branch=master
+commit=382abc6
+
+Backends installed: 
+	 - opencl

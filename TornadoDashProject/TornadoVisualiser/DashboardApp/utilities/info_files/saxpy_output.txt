@@ -1,0 +1,3 @@
+bm=saxpy-101-16777216, id=java-reference      , average=4.134617e+06, median=3.903625e+06, firstIteration=1.489883e+07, best=3.453000e+06
+bm=saxpy-101-16777216, device=0:0  , average=2.268911e+07, median=2.252508e+07, firstIteration=2.268174e+08, best=1.981042e+07, speedupAvg=0.1822, speedupMedian=0.1733, speedupFirstIteration=0.0657, CV=10.7141%, deviceName= [Apple] -- Apple M1
+bm=saxpy-101-16777216, device=0:1  , average=3.468707e+07, median=3.349204e+07, firstIteration=8.989092e+07, best=2.925338e+07, speedupAvg=0.1192, speedupMedian=0.1166, speedupFirstIteration=0.1657, CV=16.8287%, deviceName= [Apple] -- Apple M1
