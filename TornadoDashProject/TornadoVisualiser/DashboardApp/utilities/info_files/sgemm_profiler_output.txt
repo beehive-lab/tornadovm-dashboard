@@ -1,2 +1,2 @@
-bm=sgemm-20-512-512, device=0:0  , kernelMin=1324375.00, kernelAvg=1937406.35, copyInAvg=76993.90, copyOutAvg=24260.60, deviceName= [Apple] -- Apple M1
-bm=sgemm-20-512-512, device=0:1  , kernelMin=139420708.00, kernelAvg=151819781.20, copyInAvg=1150289.30, copyOutAvg=66279.35, deviceName= [Apple] -- Apple M1
+bm=sgemm-20-512-512, device=0:0  , kernelMin=2103875.00, kernelAvg=2200050.25, copyInAvg=91550.15, copyOutAvg=34516.90, deviceName= [Apple] -- Apple M1
+bm=sgemm-20-512-512, device=0:1  , kernelMin=131202000.00, kernelAvg=144040598.05, copyInAvg=1137904.30, copyOutAvg=67449.80, deviceName= [Apple] -- Apple M1

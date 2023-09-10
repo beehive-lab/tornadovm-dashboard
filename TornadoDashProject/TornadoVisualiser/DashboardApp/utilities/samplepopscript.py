@@ -1,104 +1,108 @@
-from django.utils import timezone
-from DashboardApp.models import Run, Benchmark, TotalResults, TaskGraphResults, HardwareConfiguration, SoftwareConfiguration, TaskResults
+import json
+from datetime import datetime
+from DashboardApp.models import (Run, Benchmark, TotalResults, TaskGraphResults,
+                                 HardwareConfiguration, SoftwareConfiguration, TaskResults)
 
-# Create and save a Run instance with timezone-aware DateTime
-run = Run.objects.create(
-    DateTime=timezone.now(),  # Use timezone-aware datetime
-    CommitPoint="abc123",
-    LatestRelease="v1.2",
-    Description="Test run description"
-)
-run.save()
-print("Run ID: " + str(run.RunID))
+# Load the JSON data from the "output.json" file
+with open('output.json', 'r') as json_file:
+    data = json.load(json_file)
 
-# Create and save a Benchmark instance related to the Run
-benchmark = Benchmark.objects.create(
-    RunID=run,
-    BenchmarkName="Test Benchmark",
-    NumberOfIterations=10,
-    BenchmarkFlags="flag1 flag2",
-    MTMD=5,
-    SizeType=1,
-    SizeNumber="small",
-    Dimension=2
-)
-benchmark.save()
-print("Benchmark ID: " + str(benchmark.BenchmarkID))
+# Extract information from the JSON data
+device_name = data.get("Apple", {}).get("Device Name", "Unknown")
+cmake_version = data.get("CMake", {}).get("CMake Version", "Unknown")
+gcc_version = data.get("GCC", {}).get("GCC Version", "Unknown")
+maven_version = data.get("Maven", {}).get("Maven Version", "Unknown")
+python_version = data.get("Python", "Unknown")
 
-# Create and save a TotalResults instance related to the Benchmark
-total_results = TotalResults.objects.create(
-    BenchmarkID=benchmark,
-    TotalAverageTime=1000,
-    TotalMedianTime=800,
-    TotalFirstIteration=1200,
-    TotalBest=700,
-    TotalMinimum=600,
-    TotalSpeedup=1.5
-)
-total_results.save()
-print("Total Results ID: " + str(total_results.ResultID))
+saxpy_data = data.get("SaxpyOutput", {})
+sgemm_data = data.get("SgemmProfilerOutput", {})
 
-# Create and save a TaskGraphResults instance related to the TotalResults
-task_graph_results = TaskGraphResults.objects.create(
-    ResultID=total_results,
-    MinimumKernelsTime=200,
-    KernelAverage=180,
-    Copy_IN=50,
-    Copy_OUT=60,
-    Compilation_Graal=100,
-    Compilation_Driver=80,
-    Dispatch_Time=40
-)
-task_graph_results.save()
-print("Task Graph Results ID: " + str(task_graph_results.TaskGraphID))
+# Create a new Run record
+run = Run(DateTime=datetime.now(),
+          CommitPoint="Unknown",
+          LatestRelease="Unknown",
+          Description="")
 
-# Create and save a HardwareConfiguration instance
-hardware_config = HardwareConfiguration.objects.create(
-    HardwareInfo="Sample Hardware Info",
-    DeviceID=1,
-    DeviceTypeGPU="GPU",
-    DeviceName="Sample GPU",
-    GlobalMemorySize=8192,
-    LocalMemorySize=2048,
-    GlobalThreadNumber=256,
-    LocalThreadNumber=64,
-    MaxFrequency=2.0,
-    ComputeUnits=32,
-    DeviceExtensions="OpenCL 2.0",
-    ComputeCapability="7.5",
-    DevicePartitioning="None",
-    MaxWorkItemDimension=3,
-    UnifiedMemory=True,
-    AtomicSupport=True,
-    HalfPrecisionSupport=True,
-    DoubleSupport=False
-)
-hardware_config.save()
-print("Hardware Configuration Info: " + hardware_config.HardwareInfo)
+run.save()  # Save the Run record to the database
 
-# Create and save a SoftwareConfiguration instance
-software_config = SoftwareConfiguration.objects.create(
-    OSVersion="Ubuntu 20.04",
-    DriverVersion="NVIDIA 470.42.01",
-    JVMVersion="OpenJDK 11.0.12",
-    GCCVersion="GCC 9.3.0",
-    MavenVersion="Maven 3.6.3",
-    CmakeVersion="CMake 3.16.3",
-    PythonVersion="Python 3.8.10"
-)
-software_config.save()
-print("Software Configuration ID: " + str(software_config.SoftwareID))
+# Create HardwareConfiguration record
+hardware_info = HardwareConfiguration(HardwareInfo="Unknown",
+                                      DeviceID=0,
+                                      DeviceTypeGPU="Unknown",
+                                      DeviceName=device_name,
+                                      GlobalMemorySize=0,
+                                      LocalMemorySize=0,
+                                      GlobalThreadNumber=0,
+                                      LocalThreadNumber=0,
+                                      MaxFrequency=0.0,
+                                      ComputeUnits=0,
+                                      DeviceExtensions="Unknown",
+                                      ComputeCapability="Unknown",
+                                      DevicePartitioning="Unknown",
+                                      MaxWorkItemDimension=0,
+                                      UnifiedMemory=False,
+                                      AtomicSupport=False,
+                                      HalfPrecisionSupport=False,
+                                      DoubleSupport=False)
 
-# Create and save a TaskResults instance related to the TaskGraphResults, HardwareConfiguration, and SoftwareConfiguration
-task_results = TaskResults.objects.create(
-    TaskGraphID=task_graph_results,
-    HardwareInfo=hardware_config,
-    SoftwareInfo=software_config,
-    KernelTime=150,
-    CodeGenerationTime=80,
-    DriverCompilationTime=50
-)
-task_results.save()
-print("Task Results ID: " + str(task_results.TaskID))
+hardware_info.save()  # Save the HardwareConfiguration record to the database
 
-print("Database populated with test data.")
+# Create SoftwareConfiguration record
+software_info = SoftwareConfiguration(OSVersion="Unknown",
+                                      DriverVersion="Unknown",
+                                      JVMVersion="Unknown",
+                                      GCCVersion=gcc_version,
+                                      MavenVersion=maven_version,
+                                      CmakeVersion=cmake_version,
+                                      PythonVersion=python_version)
+
+software_info.save()  # Save the SoftwareConfiguration record to the database
+
+# Loop through the Saxpy data and create Benchmark and TotalResults records
+for benchmark_name, benchmark_info in saxpy_data.items():
+    benchmark = Benchmark(RunID=run,
+                          BenchmarkName=benchmark_name,
+                          NumberOfIterations=0,
+                          BenchmarkFlags="",
+                          MTMD=0,
+                          SizeType=0,
+                          SizeNumber="",
+                          Dimension=0)
+    
+    benchmark.save()  # Save the Benchmark record to the database
+
+    total_results = TotalResults(BenchmarkID=benchmark,
+                                 TotalAverageTime=benchmark_info["Average"],
+                                 TotalMedianTime=benchmark_info["Median"],
+                                 TotalFirstIteration=benchmark_info["FirstIteration"],
+                                 TotalBest=benchmark_info["Best"],
+                                 TotalMinimum=0,
+                                 TotalSpeedup=0.0)
+
+    total_results.save()  # Save the TotalResults record to the database
+
+# Loop through the Sgemm data and create Benchmark and TotalResults records
+for benchmark_name, benchmark_info in sgemm_data.items():
+    benchmark = Benchmark(RunID=run,
+                          BenchmarkName=benchmark_name,
+                          NumberOfIterations=0,
+                          BenchmarkFlags="",
+                          MTMD=0,
+                          SizeType=0,
+                          SizeNumber="",
+                          Dimension=0)
+    
+    benchmark.save()  # Save the Benchmark record to the database
+
+    total_results = TotalResults(BenchmarkID=benchmark,
+                                 TotalAverageTime=benchmark_info["KernelAvg"],
+                                 TotalMedianTime=benchmark_info["KernelAvg"],
+                                 TotalFirstIteration=0,
+                                 TotalBest=0,
+                                 TotalMinimum=benchmark_info["KernelMin"],
+                                 TotalSpeedup=0.0)
+
+    total_results.save()  # Save the TotalResults record to the database
+
+# Print a message to indicate that the data has been populated
+print("Data has been populated into the database.")

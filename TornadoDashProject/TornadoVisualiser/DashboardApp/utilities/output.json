@@ -1,0 +1,34 @@
+{
+    "Apple": {
+        "Device Name": "Apple M1"
+    },
+    "CMake": {
+        "CMake Version": "3.26.4"
+    },
+    "GCC": {
+        "GCC Version": "14.0.0"
+    },
+    "Maven": {
+        "Maven Version": "3.9.3"
+    },
+    "Platform": "Darwin",
+    "Python": "Python 3.11.4",
+    "SaxpyOutput": {
+        "saxpy-101-16777216": {
+            "Device": "0:1",
+            "Average": 38265940.0,
+            "Median": 37697630.0,
+            "FirstIteration": 88901580.0,
+            "Best": 29656500.0
+        }
+    },
+    "SgemmProfilerOutput": {
+        "sgemm-20-512-512": {
+            "Device": "0:1",
+            "KernelMin": 131202000.0,
+            "KernelAvg": 144040598.05,
+            "CopyInAvg": 1137904.3,
+            "CopyOutAvg": 67449.8
+        }
+    }
+}
